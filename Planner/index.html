@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discipline & Life Tracker - Cloud Synced</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="theme-dark">
+
+    <div id="auth-screen">
+        <div class="card" style="width: 300px;">
+            <h2>Discipline Tracker</h2>
+            <p>Log in to sync your life across all devices.</p>
+            <button class="primary" id="btn-login">Sign in with Google</button>
+        </div>
+    </div>
+
+    <div id="main-app" class="app-container">
+        <div class="top-bar">
+            <h2>Life Tracker</h2>
+            <div class="top-bar-controls">
+                <div class="theme-selector">
+                    <select id="theme-select" onchange="changeTheme(this.value)">
+                        <option value="theme-dark">🌙 Dark</option>
+                        <option value="theme-light">☀️ Light</option>
+                        <option value="theme-mint">🍃 Mint</option>
+                        <option value="theme-sunset">🌅 Sunset</option>
+                    </select>
+                </div>
+                <button class="icon-btn" id="btn-logout" style="padding: 8px 12px;">Logout</button>
+            </div>
+        </div>
+
+        <div id="portal-plans" class="view active">
+            <div id="home-view" class="view active">
+                <button class="primary" onclick="switchPlanView('create-view')" style="margin-top: 0; margin-bottom: 20px;">+ Create New Plan</button>
+                <div id="plans-list">Loading data...</div>
+            </div>
+
+            <div id="create-view" class="view card">
+                <h2>Create a Plan</h2>
+                <label>Plan Name</label>
+                <input type="text" id="plan-name" placeholder="e.g., 75 Hard, Exam Prep">
+                <div class="row">
+                    <div><label>Start Date</label><input type="date" id="plan-date"></div>
+                    <div><label>Start Time</label><input type="time" id="plan-time"></div>
+                </div>
+                <label>Duration (Days)</label>
+                <input type="number" id="plan-duration" placeholder="e.g., 7, 30" min="1">
+                <label>Daily Tasks (Max 10 pts each)</label>
+                <div id="tasks-container">
+                    <div class="row" style="margin-bottom: 10px;"><input type="text" class="task-input" placeholder="e.g., Read 10 pages"></div>
+                </div>
+                <button type="button" class="secondary" onclick="addTaskField()" style="border-style: dashed;">+ Add Task</button>
+                <button class="primary" onclick="savePlan()">Save Plan</button>
+                <button class="secondary" onclick="switchPlanView('home-view')">Cancel</button>
+            </div>
+
+            <div id="detail-view" class="view">
+                <button class="secondary" onclick="switchPlanView('home-view')" style="margin-top:0; margin-bottom: 20px;">← Back to Plans</button>
+                <div class="card">
+                    <h2 id="detail-title">Plan Name</h2>
+                    <p id="detail-info"></p>
+                    <div class="task-list-header">
+                        <strong>Your Goals (Points: 0-10)</strong>
+                        <ul id="detail-task-list"></ul>
+                    </div>
+                    <div id="final-score-container"></div>
+                </div>
+                <div class="card">
+                    <h3>Log Progress</h3>
+                    <input type="date" id="log-date" onchange="renderScoringUI()">
+                    <div id="scoring-container"></div>
+                    <button class="primary" onclick="saveDailyScores()">Save Today's Progress</button>
+                </div>
+                <h3>History</h3>
+                <div id="history-container"></div>
+            </div>
+        </div>
+
+        <div id="portal-notes" class="view">
+            <div class="card">
+                <h2>New Note</h2>
+                <div class="row">
+                    <div><input type="date" id="note-date" readonly style="background: var(--bg); opacity: 0.7;"></div>
+                    <div><input type="time" id="note-time" readonly style="background: var(--bg); opacity: 0.7;"></div>
+                </div>
+                <label>Write your thoughts...</label>
+                <textarea id="note-text" rows="5" placeholder="Type here..."></textarea>
+                <button class="primary" onclick="saveNote()">Save Note</button>
+            </div>
+            <h3>Saved Notes</h3>
+            <div id="notes-history-container"></div>
+        </div>
+    </div>
+
+    <div class="bottom-nav" id="bottom-nav" style="display:none;">
+        <button class="nav-btn active" id="nav-plans" onclick="switchPortal('plans')"><span>📋</span> Plans</button>
+        <button class="nav-btn" id="nav-notes" onclick="switchPortal('notes')"><span>📓</span> My Notes</button>
+    </div>
+
+    <script type="module" src="app.js"></script>
+</body>
+
+</html>
