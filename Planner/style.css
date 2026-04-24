@@ -1,5 +1,14 @@
 /* --- Themes --- */
 
+
+/* --- Fix for Dark Mode Calendar/Clock Icons --- */
+
+body.theme-dark input[type="date"]::-webkit-calendar-picker-indicator,
+body.theme-dark input[type="time"]::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+    cursor: pointer;
+}
+
 :root {
     --bg: #f3f4f6;
     --surface: #ffffff;
