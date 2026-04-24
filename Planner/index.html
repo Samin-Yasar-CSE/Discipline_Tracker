@@ -60,7 +60,15 @@
             </div>
 
             <div id="detail-view" class="view">
-                <button class="secondary" onclick="switchPlanView('home-view')" style="margin-top:0; margin-bottom: 20px;">← Back to Plans</button>
+                <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px;">
+                    <button class="secondary" onclick="switchPlanView('home-view')" style="margin-top:0; width: auto; padding: 8px 15px;">← Back</button>
+
+                    <div style="flex-grow: 1;"></div>
+
+                    <button class="secondary" onclick="cloneCurrentPlan()" style="margin-top:0; width: auto; padding: 8px 15px; color: #10b981; border-color: #10b981;">📋 Copy</button>
+                    <button class="secondary" onclick="openEditView()" style="margin-top:0; width: auto; padding: 8px 15px; color: #f59e0b; border-color: #f59e0b;">✏️ Edit</button>
+                    <button class="secondary" onclick="deleteCurrentPlan()" style="margin-top:0; width: auto; padding: 8px 15px; color: #ef4444; border-color: #ef4444;">🗑️ Delete</button>
+                </div>
                 <div class="card">
                     <h2 id="detail-title">Plan Name</h2>
                     <p id="detail-info"></p>
@@ -79,14 +87,33 @@
                 <h3>History</h3>
                 <div id="history-container"></div>
             </div>
+
+            <div id="edit-view" class="view card">
+                <h2>Edit Plan</h2>
+                <label>Plan Name</label>
+                <input type="text" id="edit-plan-name">
+                <div class="row">
+                    <div><label>Start Date</label><input type="date" id="edit-plan-date"></div>
+                    <div><label>Start Time</label><input type="time" id="edit-plan-time"></div>
+                </div>
+                <label>Duration (Days)</label>
+                <input type="number" id="edit-plan-duration" min="1">
+
+                <label>Edit Tasks</label>
+                <div id="edit-tasks-container"></div>
+
+                <button type="button" class="secondary" onclick="addEditTaskField()" style="border-style: dashed;">+ Add Task</button>
+                <button class="primary" onclick="saveEditedPlan()">Save Changes</button>
+                <button class="secondary" onclick="switchPlanView('detail-view')">Cancel</button>
+            </div>
         </div>
 
         <div id="portal-notes" class="view">
             <div class="card">
                 <h2>New Note</h2>
                 <div class="row">
-                    <div><input type="date" id="note-date" readonly style="background: var(--bg); opacity: 0.7;"></div>
-                    <div><input type="time" id="note-time" readonly style="background: var(--bg); opacity: 0.7;"></div>
+                    <div><input type="date" id="note-date"></div>
+                    <div><input type="time" id="note-time"></div>
                 </div>
                 <label>Write your thoughts...</label>
                 <textarea id="note-text" rows="5" placeholder="Type here..."></textarea>
